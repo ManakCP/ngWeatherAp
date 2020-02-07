@@ -9,19 +9,21 @@ import { WeatherData } from '/Models/WeatherData';
   providedIn:'root'
 })
 export class WeatherService {
-
+  private url:string;
   constructor(private http: HttpClient) { }
 
-  getWeather(filterText: String)
+  getWeatherByCity(filterText: String) : Observable<WeatherData>
   {
-    return this.http.get('https://api.openweathermap.org/data/2.5/weather?q='+filterText+'&APPID=88dc251c19359890486549fc1a7f4bc7');
+    this.url = 'https://api.openweathermap.org/data/2.5/weather?q='+filterText+'&APPID=88dc251c19359890486549fc1a7f4bc7';
+    return this.http.get(this.url).pipe(map(res => JSON.parse(JSON.stringify(res))));
   }
-  getWeatherOnCoords(coord: Coord) : Observable<WeatherData>
-  {
-    let url: string;
-    url = 'https://api.openweathermap.org/data/2.5/weather?lat='+coord.lat+'&lon='+coord.lon+'&APPID=88dc251c19359890486549fc1a7f4bc7';
-    return this.http.get(url).pipe(map(res => JSON.parse(JSON.stringify(res))));
-  }
+  getWeatherByCoords(coord: Coord) : Observable<WeatherData>
+  {    
+     this.url = 'https://api.openweathermap.org/data/2.5/weather?lat='+coord.lat+'&lon='+coord.lon+'&APPID=88dc251c19359890486549fc1a7f4bc7';
+
+    //this.url = `${this.URL}?lat=${coord.lat}&lon=${coord.lon}&APPID=${this.Key}`;
 
 
+    return this.http.get(this.url).pipe(map(res => JSON.parse(JSON.stringify(res))));
+  }
 }
