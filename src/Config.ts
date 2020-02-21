@@ -1,3 +1,3 @@
 export class Config {
-    service_api = 'http://starlord.hackerearth.com/movies';
+    service_api = '/api/movies';
 }

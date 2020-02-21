@@ -16,6 +16,7 @@ export class MovieService {
 
   GetMovies(): Observable<Movie[]>
   {
-    return this.http.get(this._url).pipe(map(res => JSON.parse(JSON.stringify(res))));;
+    return this.http.get(this._url, )
+    .pipe(map(res => JSON.parse(JSON.stringify(res))));;
   }
 }
